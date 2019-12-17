@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "/usr/bin/python",
+    "python.linting.pycodestyleEnabled": false,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.autoComplete.extraPaths": [
+        "/home/kshitij/ROS_workspaces/InterIIT/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages",
+        "/usr/lib/python2.7/dist-packages"
+    ]
+}

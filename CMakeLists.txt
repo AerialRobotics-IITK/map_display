@@ -210,9 +210,6 @@ project(map_display)
 
 find_package(catkin_simple REQUIRED)
 catkin_simple()
-
+cs_add_executable(my_exec src/image_pub.cpp)
 cs_install()
-
-cs_install_scripts(scripts/map.py)
-
 cs_export()
