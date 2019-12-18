@@ -75,14 +75,6 @@
   <depend>cv_bridge</depend>
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
-  <depend>nav_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>message_generation</depend>
-  <depend>eigen_conversions</depend>
-  <depend>tf</depend>
-  <depend>tf_conversions</depend>
-  <depend>mav_utils_msgs</depend>
-  <depend>dynamic_reconfigure</depend>
   <exec_depend>image_transport</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
