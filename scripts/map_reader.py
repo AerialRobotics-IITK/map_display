@@ -1,7 +1,8 @@
+#!/usr/bin/env python
+
 import rospy
 import numpy
 import os
-import requests
 import cv2
 from std_srvs.srv import Trigger, TriggerRequest, TriggerResponse
 import math
@@ -34,8 +35,8 @@ if __name__ == "__main__":
     image_service = rospy.ServiceProxy('/update_image', Trigger)
     # api_key = "your-api-key-goes-here"
     # url = "https://dev.virtualearth.net/REST/v1/Imagery/Map/Aerial/"
-    center_lat = 26.519608 
-    center_lon = 80.232266
+    center_lat = 26.509590 
+    center_lon = 80.226678
     center_point = (1000,750)
     # pin_style = "50"
     zoom = 19
