@@ -69,7 +69,7 @@ if __name__ == "__main__":
                 
 
                 print (point_to_mark)
-                cv2.rectangle(map, (point_to_mark[0] - 15,point_to_mark[1] - 15),(point_to_mark[0] + 15,point_to_mark[1] + 15), (0,0,255), -1)
+                cv2.rectangle(map, (point_to_mark[0] - 15,point_to_mark[1] - 15),(point_to_mark[0] + 15,point_to_mark[1] + 15), (0,255,0), -1)
                 # final_url = final_url + "&pushpin=" + lat + "," + lon + ";" + pin_style + ";B" + str(i)
                 
                 # final_url = final_url + "&key=" + api_key
