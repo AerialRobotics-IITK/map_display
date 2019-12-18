@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="image_converter" pkg="map_display" type="map_disp" />
+    <node name="image_update" pkg="map_display" type="map_reader.py" output="screen"/>
+</launch>
