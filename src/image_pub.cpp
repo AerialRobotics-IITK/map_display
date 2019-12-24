@@ -6,17 +6,20 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <std_srvs/Trigger.h>
 
-  cv::Mat img;
-  std::string home_dir;
+//Variable for storing image and home directory
+cv::Mat img;
+std::string home_dir;
 
 class ImageConverter
 {
+  //Declaring essential ROS variables
   ros::NodeHandle nh_;
   image_transport::ImageTransport it_;
   image_transport::Publisher image_pub_;
+  ros::ServiceServer server;
 
-
-public:
+  public:
+  //Callback function for image update service, which loads and updates the image in the node when called
   static bool imageupdateCallback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &resp){
     img = cv::imread(home_dir + "/.ros/router/map.jpg");
     resp.success = true;
@@ -27,50 +30,37 @@ public:
   ImageConverter()
     : it_(nh_)
   {
-    // Subscrive to input video feed and publish output video feed
+    //Storing the address of the home directory as a string
     home_dir = std::string(getenv("HOME"));
-    std::cout << home_dir;
-    image_pub_ = it_.advertise("/image_converter/output_video", 1);
-    int num_images = 0;
-    ros::Rate LoopRate(5);
-    img = cv::imread(home_dir + "/.ros/router/map.jpg");
-    if (img.empty()) {
-      std::cout << "cant read image " << home_dir;
 
+    image_pub_ = it_.advertise("/image_converter/output_video", 1);
+    server = nh_.advertiseService ("update_image",imageupdateCallback);
+    ros::Rate LoopRate(5);
+    
+    //Try catch block to display exceptions in reading image
+    try{
+      img = cv::imread(home_dir + "/.ros/router/map.jpg");
+    }
+
+    catch (cv::Exception& e) {
+      const char* err_msg = e.what();
+      std::cout << "Problem in reading image: " << err_msg << std::endl;
       return;
     }
 
-    img = cv::imread(home_dir + "/.ros/router/map.jpg");
-    ros::ServiceServer server = nh_.advertiseService ("update_image",imageupdateCallback);
-
     while (ros::ok()){
-      // cv_bridge::CvImagePtr cv_ptr;
-      //cv_ptr->image = cv::imread(home_dir + "/.ros/router/map.jpg");
-      // sensor_msgs::ImagePtr map_image = cv_bridge::CvImage(std_msgs::Header(), "bgr8", undistImg_).toImageMsg()
-      char home_dir_cpy[50];
-      strcpy(home_dir_cpy,getenv("HOME"));
+      //Publishing image stream
       sensor_msgs::ImagePtr map_image = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img).toImageMsg();
-      // std::cout << home_dir_cpy << std::endl;
-      FILE* fp = fopen(strcat(home_dir_cpy,"/.ros/router/gps.txt"), "r");
-      int num = fgetc(fp) - 48;
-      fclose(fp);
       image_pub_.publish(map_image);
-
-      // free(home_dir_cpy);
       ros::spinOnce();
       LoopRate.sleep();
-
     }
   }
-
-
-
 };
 
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "image_converter");
   ImageConverter ic;
-//   ros::spin();
   return 0;
 }
