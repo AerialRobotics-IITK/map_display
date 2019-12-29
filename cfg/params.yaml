@@ -6,6 +6,8 @@ center_coordinates:
 #Zoom level of the map
 zoom: 19
 
+#Type of imagery.
+type: Aerial
 #Dimensions of the map_image in pixels
 image_dimensions: 
   image_width: 1500
