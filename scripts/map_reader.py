@@ -47,10 +47,14 @@ if __name__ == "__main__":
     #center_lat, center_lon := GPS coordinates of the point corresponding to the center pixel on the map
     #center_point := Pixel coordinates of the center point (width/2,height/2)
     #zoom := Zoom level of the bing maps being used
-    center_lat = 26.509590 
-    center_lon = 80.226678
-    center_point = (1000,750)
-    zoom = 19
+    #square_width := Width of the square to be used as a marker
+    #square_color := Color of the square to be used as a marker
+    center_lat = rospy.get_param("/center_coordinates/latitude")
+    center_lon = rospy.get_param("/center_coordinates/longitude")
+    center_point = (rospy.get_param("/image_dimensions/image_height")/2,rospy.get_param("/image_dimensions/image_width")/2)
+    zoom = rospy.get_param("/zoom")
+    square_width = rospy.get_param("/square_properties/square_width")
+    square_color = rospy.get_param("/square_properties/square_color")
     
     #num_coords stores the number of coordinate points currently in the gps.txt file
     num_coords = 0
@@ -83,7 +87,7 @@ if __name__ == "__main__":
                 
                 #Print point to be marked and draw a rectangle around it
                 print (point_to_mark)
-                cv2.rectangle(map, (point_to_mark[0] - 15,point_to_mark[1] - 15),(point_to_mark[0] + 15,point_to_mark[1] + 15), (0,255,0), -1)
+                cv2.rectangle(map, (point_to_mark[0] - square_width/2,point_to_mark[1] - square_width/2),(point_to_mark[0] + square_width/2,point_to_mark[1] + square_width/2), (square_color['b'],square_color['g'],square_color['r']), -1)
 
             #Write the image, call the service, and print the result     
             cv2.imwrite(os.path.expanduser('~')+'/.ros/router/map.jpg',map)
