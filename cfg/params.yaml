@@ -1,0 +1,20 @@
+#GPS coordinates of the map center
+center_coordinates:
+  latitude: 26.509590
+  longitude: 80.226678
+
+#Zoom level of the map
+zoom: 19
+
+#Dimensions of the map_image in pixels
+image_dimensions: 
+  image_width: 1500
+  image_height: 2000
+
+#Properties of the square marker (width in pixels and color in rgb)
+square_properties:
+  square_width: 30
+  square_color:
+    r: 0
+    g: 255
+    b: 0
